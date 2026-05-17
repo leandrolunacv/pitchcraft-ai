@@ -3,8 +3,6 @@ import { stripe } from '@/lib/stripe'
 import { createSupabaseAdminClient } from '@/lib/supabase/server'
 import type Stripe from 'stripe'
 
-export const config = { api: { bodyParser: false } }
-
 async function updateUserPlan(
   admin: ReturnType<typeof createSupabaseAdminClient>,
   customerId: string,
