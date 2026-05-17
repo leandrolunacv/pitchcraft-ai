@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAnthropicClient, MODEL } from '@/lib/anthropic'
+import { anthropic, MODEL } from '@/lib/anthropic'
 import { buildImprovePrompt } from '@/lib/prompts'
 import type { PitchConfig, QuickAction } from '@/lib/types'
 
@@ -15,13 +15,13 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Missing pitch or action.' }, { status: 400 })
     }
 
-    const client = getAnthropicClient()
+    
     const prompt = buildImprovePrompt(pitch, action, config)
 
-    const stream = client.messages.stream({
+    const stream = anthropic.messages.stream({
       model: MODEL,
       max_tokens: 3000,
-      thinking: { type: 'adaptive' },
+      thinking: { type: 'adaptive' } as any,
       messages: [{ role: 'user', content: prompt }],
     })
 

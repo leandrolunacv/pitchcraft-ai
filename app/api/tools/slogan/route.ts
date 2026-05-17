@@ -17,7 +17,7 @@ export async function POST(req: NextRequest) {
         const response = await anthropic.messages.create({
           model: MODEL,
           max_tokens: 2000,
-          thinking: { type: 'adaptive' },
+          thinking: { type: 'adaptive' } as any,
           stream: true,
           messages: [{
             role: 'user',

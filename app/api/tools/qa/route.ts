@@ -57,7 +57,7 @@ Evaluate this answer and return ONLY valid JSON:
         const response = await anthropic.messages.create({
           model: MODEL,
           max_tokens: 1500,
-          thinking: { type: 'adaptive' },
+          thinking: { type: 'adaptive' } as any,
           stream: true,
           messages: [{ role: 'user', content: prompt }],
         })

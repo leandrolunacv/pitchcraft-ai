@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getAnthropicClient, MODEL } from '@/lib/anthropic'
+import { anthropic, MODEL } from '@/lib/anthropic'
 import { buildCreatePitchPrompt } from '@/lib/prompts'
 import { createSupabaseServerClient, createSupabaseAdminClient } from '@/lib/supabase/server'
 import { checkUsage, logUsage } from '@/lib/plans'
@@ -24,13 +24,13 @@ export async function POST(req: NextRequest) {
     const { answers, config }: { answers: CreatePitchAnswers; config: PitchConfig } =
       await req.json()
 
-    const client = getAnthropicClient()
+    
     const prompt = buildCreatePitchPrompt(answers, config)
 
-    const stream = client.messages.stream({
+    const stream = anthropic.messages.stream({
       model: MODEL,
       max_tokens: 4096,
-      thinking: { type: 'adaptive' },
+      thinking: { type: 'adaptive' } as any,
       messages: [{ role: 'user', content: prompt }],
     })
 
