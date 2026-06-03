@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
   }
 
-  const { plan } = await req.json() as { plan: 'monthly' | 'lifetime' }
+  const { plan } = await req.json() as { plan: 'monthly' | 'teams' | 'lifetime' }
   const planConfig = PLANS[plan]
   if (!planConfig) {
     return NextResponse.json({ error: 'Invalid plan' }, { status: 400 })
@@ -39,7 +39,7 @@ export async function POST(req: NextRequest) {
   const session = await stripe.checkout.sessions.create({
     customer: customerId,
     line_items: [{ price: planConfig.priceId, quantity: 1 }],
-    mode: plan === 'monthly' ? 'subscription' : 'payment',
+    mode: plan === 'lifetime' ? 'payment' : 'subscription',
     success_url: `${origin}/dashboard?upgraded=true`,
     cancel_url: `${origin}/pricing`,
     metadata: { supabase_user_id: user.id, plan },

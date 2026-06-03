@@ -6,7 +6,7 @@ import type Stripe from 'stripe'
 async function updateUserPlan(
   admin: ReturnType<typeof createSupabaseAdminClient>,
   customerId: string,
-  plan: 'paid' | 'free' | 'lifetime',
+  plan: 'paid' | 'free' | 'lifetime' | 'teams',
   subscriptionId?: string
 ) {
   await admin
@@ -43,6 +43,8 @@ export async function POST(req: NextRequest) {
         await updateUserPlan(admin, customerId, 'lifetime')
       } else if (plan === 'monthly') {
         await updateUserPlan(admin, customerId, 'paid', session.subscription as string)
+      } else if (plan === 'teams') {
+        await updateUserPlan(admin, customerId, 'teams', session.subscription as string)
       }
       break
     }

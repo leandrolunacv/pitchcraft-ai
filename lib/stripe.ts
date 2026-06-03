@@ -12,6 +12,13 @@ export const PLANS = {
     interval: 'month' as const,
     pitches: -1, // unlimited
   },
+  teams: {
+    priceId: process.env.STRIPE_PRICE_TEAMS!,
+    amount: 4900,
+    label: 'Teams',
+    interval: 'month' as const,
+    pitches: -1, // unlimited
+  },
   lifetime: {
     priceId: process.env.STRIPE_PRICE_LIFETIME!,
     amount: 14900,

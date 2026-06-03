@@ -46,6 +46,25 @@ const plans = [
     highlight: true,
   },
   {
+    id: 'teams',
+    name: 'Teams',
+    price: '$49',
+    period: '/mes',
+    description: 'Para incubadoras, universidades y aceleradoras',
+    pitches: -1,
+    features: [
+      'Todo lo de Pro',
+      'Hasta 5 usuarios',
+      'Pitches ilimitados por usuario',
+      'Panel de administración',
+      'Ideal para programas de emprendimiento',
+      'Soporte prioritario VIP',
+    ],
+    cta: 'Empezar Teams',
+    plan: 'teams',
+    highlight: false,
+  },
+  {
     id: 'lifetime',
     name: 'Lifetime',
     price: '$149',
@@ -69,7 +88,7 @@ const plans = [
 export default function PricingPage() {
   const [loading, setLoading] = useState<string | null>(null)
 
-  async function handleCheckout(plan: 'monthly' | 'lifetime') {
+  async function handleCheckout(plan: 'monthly' | 'teams' | 'lifetime') {
     setLoading(plan)
     try {
       const res = await fetch('/api/stripe/checkout', {
@@ -124,7 +143,7 @@ export default function PricingPage() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.id}
@@ -178,7 +197,7 @@ export default function PricingPage() {
                 </Link>
               ) : (
                 <button
-                  onClick={() => handleCheckout(plan.plan as 'monthly' | 'lifetime')}
+                  onClick={() => handleCheckout(plan.plan as 'monthly' | 'teams' | 'lifetime')}
                   disabled={loading === plan.plan}
                   className={`w-full py-3 rounded-xl font-semibold text-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed ${
                     plan.highlight

@@ -1,14 +1,16 @@
-export type Plan = 'free' | 'paid' | 'lifetime'
+export type Plan = 'free' | 'paid' | 'teams' | 'lifetime'
 
 export const PLAN_LIMITS: Record<Plan, number> = {
   free: 3,
   paid: 999999, // unlimited
+  teams: 999999, // unlimited
   lifetime: 999999, // unlimited
 }
 
 export const PLAN_LABELS: Record<Plan, string> = {
   free: 'Free',
   paid: 'Pro',
+  teams: 'Teams',
   lifetime: 'Lifetime',
 }
 
