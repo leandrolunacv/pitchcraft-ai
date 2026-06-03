@@ -3,89 +3,28 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import { motion } from 'framer-motion'
+import { LanguageProvider, useLang } from '@/context/LanguageContext'
+import { pricingTranslations } from '@/lib/i18n'
 
-const plans = [
-  {
-    id: 'free',
-    name: 'Free',
-    price: '$0',
-    period: 'para siempre',
-    description: 'Para explorar la plataforma',
-    pitches: 3,
-    features: [
-      '3 pitches gratis',
-      'Análisis en 6 dimensiones',
-      'Crear desde cero',
-      'Upload de archivos',
-      'Historial de pitches',
-    ],
-    cta: 'Empezar gratis',
-    href: '/login',
-    highlight: false,
-  },
-  {
-    id: 'monthly',
-    name: 'Pro',
-    price: '$19',
-    period: '/mes',
-    description: 'Para founders y profesionales activos',
-    pitches: -1,
-    features: [
-      'Pitches ilimitados',
-      'Análisis en 6 dimensiones',
-      'Crear desde cero',
-      'Upload de archivos y audio/video',
-      'Historial ilimitado',
-      '8 acciones rápidas de optimización',
-      'Generador de nombres y slogans',
-      'Simulador de preguntas inversor',
-      'Soporte prioritario',
-    ],
-    cta: 'Empezar Pro',
-    plan: 'monthly',
-    highlight: true,
-  },
-  {
-    id: 'teams',
-    name: 'Teams',
-    price: '$49',
-    period: '/mes',
-    description: 'Para incubadoras, universidades y aceleradoras',
-    pitches: -1,
-    features: [
-      'Todo lo de Pro',
-      'Hasta 5 usuarios',
-      'Pitches ilimitados por usuario',
-      'Panel de administración',
-      'Ideal para programas de emprendimiento',
-      'Soporte prioritario VIP',
-    ],
-    cta: 'Empezar Teams',
-    plan: 'teams',
-    highlight: false,
-  },
-  {
-    id: 'lifetime',
-    name: 'Lifetime',
-    price: '$149',
-    period: 'pago único',
-    description: 'Early adopter — solo primeros 50 clientes',
-    pitches: -1,
-    features: [
-      'Pitches ilimitados para siempre',
-      'Todo lo de Pro',
-      'Acceso de por vida',
-      'Actualizaciones futuras incluidas',
-      'Soporte prioritario VIP',
-      '🔥 Precio especial early adopter',
-    ],
-    cta: 'Comprar Lifetime',
-    plan: 'lifetime',
-    highlight: false,
-  },
-]
+const planIds = ['free', 'monthly', 'teams', 'lifetime']
+const highlights = [false, true, false, false]
 
-export default function PricingPage() {
+function LangToggle() {
+  const { lang, setLang } = useLang()
+  return (
+    <button
+      onClick={() => setLang(lang === 'en' ? 'es' : 'en')}
+      className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 text-white/60 hover:text-white text-sm font-medium transition-all"
+    >
+      <span>{lang === 'en' ? '🇺🇸' : '🇪🇸'}</span>
+      <span>{lang === 'en' ? 'EN' : 'ES'}</span>
+    </button>
+  )
+}
+
+function PricingContent() {
+  const { lang } = useLang()
+  const t = pricingTranslations[lang]
   const [loading, setLoading] = useState<string | null>(null)
 
   async function handleCheckout(plan: 'monthly' | 'teams' | 'lifetime') {
@@ -103,7 +42,7 @@ export default function PricingPage() {
         window.location.href = '/login'
       }
     } catch {
-      alert('Error al iniciar el pago. Intenta de nuevo.')
+      alert(lang === 'es' ? 'Error al iniciar el pago. Intenta de nuevo.' : 'Payment error. Please try again.')
     } finally {
       setLoading(null)
     }
@@ -123,43 +62,37 @@ export default function PricingPage() {
           <span className="font-bold text-white">PitchCraft AI</span>
         </Link>
         <div className="flex items-center gap-3">
+          <LangToggle />
           <Link href="/dashboard" className="btn-secondary text-sm px-4 py-2">Dashboard</Link>
         </div>
       </nav>
 
-      <div className="max-w-5xl mx-auto px-6 py-20">
+      <div className="max-w-6xl mx-auto px-6 py-20">
         <div className="text-center mb-14">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-          >
-            <span className="text-xs font-semibold text-brand-400 uppercase tracking-widest mb-4 block">Planes</span>
+          <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }}>
+            <span className="text-xs font-semibold text-brand-400 uppercase tracking-widest mb-4 block">{t.tag}</span>
             <h1 className="text-4xl font-bold text-white mb-4">
-              Invierte en tu próximo <span className="text-brand-400">gran pitch</span>
+              {t.title} <span className="text-brand-400">{t.titleHighlight}</span>
             </h1>
-            <p className="text-white/50 text-lg max-w-xl mx-auto">
-              Sin compromisos a largo plazo. Cancela cuando quieras.
-            </p>
+            <p className="text-white/50 text-lg max-w-xl mx-auto">{t.subtitle}</p>
           </motion.div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
-          {plans.map((plan, i) => (
+          {t.plans.map((plan, i) => (
             <motion.div
               key={plan.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
               className={`relative rounded-2xl p-8 flex flex-col mt-4 ${
-                plan.highlight
-                  ? 'bg-brand-600/10 border-2 border-brand-500/50'
-                  : 'glass-card'
+                highlights[i] ? 'bg-brand-600/10 border-2 border-brand-500/50' : 'glass-card'
               }`}
             >
-              {plan.highlight && (
+              {highlights[i] && (
                 <div className="flex justify-center mb-4 -mt-4">
                   <span className="bg-brand-600 text-white text-xs font-bold px-4 py-1.5 rounded-full">
-                    MÁS POPULAR
+                    {t.mostPopular}
                   </span>
                 </div>
               )}
@@ -186,29 +119,21 @@ export default function PricingPage() {
 
               {plan.id === 'free' ? (
                 <Link
-                  href={plan.href!}
-                  className={`w-full text-center py-3 rounded-xl font-semibold text-sm transition-all ${
-                    plan.highlight
-                      ? 'btn-primary'
-                      : 'btn-secondary'
-                  }`}
+                  href="/login"
+                  className={`w-full text-center py-3 rounded-xl font-semibold text-sm transition-all ${highlights[i] ? 'btn-primary' : 'btn-secondary'}`}
                 >
                   {plan.cta}
                 </Link>
               ) : (
                 <button
-                  onClick={() => handleCheckout(plan.plan as 'monthly' | 'teams' | 'lifetime')}
-                  disabled={loading === plan.plan}
-                  className={`w-full py-3 rounded-xl font-semibold text-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed ${
-                    plan.highlight
-                      ? 'btn-primary'
-                      : 'btn-secondary'
-                  }`}
+                  onClick={() => handleCheckout(planIds[i] as 'monthly' | 'teams' | 'lifetime')}
+                  disabled={loading === planIds[i]}
+                  className={`w-full py-3 rounded-xl font-semibold text-sm transition-all disabled:opacity-60 disabled:cursor-not-allowed ${highlights[i] ? 'btn-primary' : 'btn-secondary'}`}
                 >
-                  {loading === plan.plan ? (
+                  {loading === planIds[i] ? (
                     <span className="flex items-center justify-center gap-2">
                       <span className="w-4 h-4 border-2 border-current border-t-transparent rounded-full animate-spin" />
-                      Redirigiendo...
+                      {lang === 'es' ? 'Redirigiendo...' : 'Redirecting...'}
                     </span>
                   ) : plan.cta}
                 </button>
@@ -217,10 +142,16 @@ export default function PricingPage() {
           ))}
         </div>
 
-        <p className="text-center text-white/30 text-sm mt-10">
-          Pagos seguros con Stripe · Cancela en cualquier momento · Sin cargos ocultos
-        </p>
+        <p className="text-center text-white/30 text-sm mt-10">{t.footer}</p>
       </div>
     </div>
+  )
+}
+
+export default function PricingPage() {
+  return (
+    <LanguageProvider>
+      <PricingContent />
+    </LanguageProvider>
   )
 }

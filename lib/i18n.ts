@@ -1,5 +1,76 @@
 export type Lang = 'en' | 'es'
 
+export const pricingTranslations = {
+  en: {
+    tag: 'Plans',
+    title: 'Invest in your next',
+    titleHighlight: 'great pitch',
+    subtitle: 'No long-term commitments. Cancel anytime.',
+    mostPopular: 'MOST POPULAR',
+    footer: 'Secure payments with Stripe · Cancel anytime · No hidden fees',
+    plans: [
+      {
+        id: 'free', name: 'Free', price: '$0', period: 'forever',
+        description: 'To explore the platform',
+        features: ['3 free pitches', '6-dimension analysis', 'Build from scratch', 'File upload', 'Pitch history'],
+        cta: 'Start for free',
+      },
+      {
+        id: 'monthly', name: 'Pro', price: '$19', period: '/mo',
+        description: 'For active founders and professionals',
+        features: ['Unlimited pitches', '6-dimension analysis', 'Build from scratch', 'File & audio/video upload', 'Unlimited history', '8 quick optimization actions', 'Name & slogan generator', 'Investor Q&A simulator', 'Priority support'],
+        cta: 'Start Pro',
+      },
+      {
+        id: 'teams', name: 'Teams', price: '$49', period: '/mo',
+        description: 'For incubators, universities and accelerators',
+        features: ['Everything in Pro', 'Up to 5 users', 'Unlimited pitches per user', 'Admin panel', 'Ideal for entrepreneurship programs', 'VIP priority support'],
+        cta: 'Start Teams',
+      },
+      {
+        id: 'lifetime', name: 'Lifetime', price: '$149', period: 'one-time',
+        description: 'Early adopter — first 50 customers only',
+        features: ['Unlimited pitches forever', 'Everything in Pro', 'Lifetime access', 'Future updates included', 'VIP priority support', '🔥 Special early adopter price'],
+        cta: 'Buy Lifetime',
+      },
+    ],
+  },
+  es: {
+    tag: 'Planes',
+    title: 'Invierte en tu próximo',
+    titleHighlight: 'gran pitch',
+    subtitle: 'Sin compromisos a largo plazo. Cancela cuando quieras.',
+    mostPopular: 'MÁS POPULAR',
+    footer: 'Pagos seguros con Stripe · Cancela en cualquier momento · Sin cargos ocultos',
+    plans: [
+      {
+        id: 'free', name: 'Free', price: '$0', period: 'para siempre',
+        description: 'Para explorar la plataforma',
+        features: ['3 pitches gratis', 'Análisis en 6 dimensiones', 'Crear desde cero', 'Upload de archivos', 'Historial de pitches'],
+        cta: 'Empezar gratis',
+      },
+      {
+        id: 'monthly', name: 'Pro', price: '$19', period: '/mes',
+        description: 'Para founders y profesionales activos',
+        features: ['Pitches ilimitados', 'Análisis en 6 dimensiones', 'Crear desde cero', 'Upload de archivos y audio/video', 'Historial ilimitado', '8 acciones rápidas de optimización', 'Generador de nombres y slogans', 'Simulador de preguntas inversor', 'Soporte prioritario'],
+        cta: 'Empezar Pro',
+      },
+      {
+        id: 'teams', name: 'Teams', price: '$49', period: '/mes',
+        description: 'Para incubadoras, universidades y aceleradoras',
+        features: ['Todo lo de Pro', 'Hasta 5 usuarios', 'Pitches ilimitados por usuario', 'Panel de administración', 'Ideal para programas de emprendimiento', 'Soporte prioritario VIP'],
+        cta: 'Empezar Teams',
+      },
+      {
+        id: 'lifetime', name: 'Lifetime', price: '$149', period: 'pago único',
+        description: 'Early adopter — solo primeros 50 clientes',
+        features: ['Pitches ilimitados para siempre', 'Todo lo de Pro', 'Acceso de por vida', 'Actualizaciones futuras incluidas', 'Soporte prioritario VIP', '🔥 Precio especial early adopter'],
+        cta: 'Comprar Lifetime',
+      },
+    ],
+  },
+}
+
 export const translations = {
   en: {
     nav: {
