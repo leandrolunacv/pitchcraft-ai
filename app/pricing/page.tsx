@@ -157,7 +157,7 @@ export default function PricingPage() {
               }`}
             >
               {plan.highlight && (
-                <div className="absolute -top-3.5 left-1/2 -translate-x-1/2">
+                <div className="flex justify-center mb-4 -mt-4">
                   <span className="bg-brand-600 text-white text-xs font-bold px-4 py-1.5 rounded-full">
                     MÁS POPULAR
                   </span>
