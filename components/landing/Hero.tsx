@@ -2,16 +2,16 @@
 
 import { motion } from 'framer-motion'
 import Link from 'next/link'
+import { translations, type Lang } from '@/lib/i18n'
 
-export default function Hero() {
+export default function Hero({ lang = 'en' }: { lang?: Lang }) {
+  const t = translations[lang].hero
   return (
     <section className="relative min-h-screen flex items-center justify-center overflow-hidden">
-      {/* Background glow effects */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[600px] h-[600px] bg-brand-600/10 rounded-full blur-3xl" />
         <div className="absolute top-1/3 left-1/4 w-[300px] h-[300px] bg-brand-500/5 rounded-full blur-2xl" />
         <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-purple-600/5 rounded-full blur-3xl" />
-        {/* Grid pattern */}
         <div
           className="absolute inset-0 opacity-[0.03]"
           style={{
@@ -22,7 +22,6 @@ export default function Hero() {
       </div>
 
       <div className="relative z-10 max-w-6xl mx-auto px-6 text-center">
-        {/* Badge */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -30,18 +29,17 @@ export default function Hero() {
           className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-brand-600/20 border border-brand-500/30 text-brand-300 text-sm font-medium mb-8"
         >
           <span className="w-2 h-2 bg-brand-400 rounded-full animate-pulse" />
-          Powered by Claude Opus 4.7
+          {t.badge}
         </motion.div>
 
-        {/* Headline */}
         <motion.h1
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6, delay: 0.1 }}
           className="text-5xl md:text-7xl font-bold tracking-tight mb-6 leading-tight"
         >
-          Craft Pitches That{' '}
-          <span className="brand-gradient">Actually Close</span>
+          {t.title1}{' '}
+          <span className="brand-gradient">{t.title2}</span>
         </motion.h1>
 
         <motion.p
@@ -50,11 +48,9 @@ export default function Hero() {
           transition={{ duration: 0.6, delay: 0.2 }}
           className="text-xl md:text-2xl text-white/60 max-w-3xl mx-auto mb-12 leading-relaxed"
         >
-          AI-powered pitch creation and optimization for entrepreneurs, startups, and salespeople.
-          Get investor-ready scripts in minutes, not months.
+          {t.subtitle}
         </motion.p>
 
-        {/* CTAs */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
@@ -65,32 +61,23 @@ export default function Hero() {
             href="/dashboard"
             className="btn-primary text-lg px-8 py-4 glow-brand inline-flex items-center gap-2 group"
           >
-            Start Crafting Your Pitch
+            {t.cta}
             <svg className="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7l5 5m0 0l-5 5m5-5H6" />
             </svg>
           </Link>
-          <a
-            href="#how-it-works"
-            className="btn-secondary text-lg px-8 py-4 inline-flex items-center gap-2"
-          >
-            See How It Works
+          <a href="#how-it-works" className="btn-secondary text-lg px-8 py-4 inline-flex items-center gap-2">
+            {t.ctaSecondary}
           </a>
         </motion.div>
 
-        {/* Social proof */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           transition={{ duration: 0.8, delay: 0.5 }}
           className="flex flex-wrap items-center justify-center gap-8 text-white/40 text-sm"
         >
-          {[
-            { value: '10,000+', label: 'Pitches Created' },
-            { value: '$50M+', label: 'Funding Raised' },
-            { value: '94%', label: 'Success Rate' },
-            { value: '4.9/5', label: 'User Rating' },
-          ].map((stat) => (
+          {t.stats.map((stat) => (
             <div key={stat.label} className="flex flex-col items-center">
               <span className="text-2xl font-bold text-white/80">{stat.value}</span>
               <span className="text-xs">{stat.label}</span>
@@ -98,7 +85,6 @@ export default function Hero() {
           ))}
         </motion.div>
 
-        {/* Preview card */}
         <motion.div
           initial={{ opacity: 0, y: 40 }}
           animate={{ opacity: 1, y: 0 }}
@@ -134,17 +120,12 @@ export default function Hero() {
                       <span>{metric.score}%</span>
                     </div>
                     <div className="h-1.5 bg-white/10 rounded-full overflow-hidden">
-                      <div
-                        className={`h-full ${metric.color} rounded-full`}
-                        style={{ width: `${metric.score}%` }}
-                      />
+                      <div className={`h-full ${metric.color} rounded-full`} style={{ width: `${metric.score}%` }} />
                     </div>
                   </div>
                 ))}
                 <div className="mt-4 flex items-center gap-2 text-white/60 text-xs">
-                  <div className="w-8 h-8 rounded-lg bg-brand-600/30 flex items-center justify-center text-brand-400 font-bold text-sm">
-                    85
-                  </div>
+                  <div className="w-8 h-8 rounded-lg bg-brand-600/30 flex items-center justify-center text-brand-400 font-bold text-sm">85</div>
                   <span>Overall Score</span>
                 </div>
               </div>
