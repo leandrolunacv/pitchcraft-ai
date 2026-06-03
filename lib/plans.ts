@@ -1,9 +1,9 @@
 export type Plan = 'free' | 'paid' | 'lifetime'
 
 export const PLAN_LIMITS: Record<Plan, number> = {
-  free: 1,
-  paid: 20,
-  lifetime: 20,
+  free: 3,
+  paid: 999999, // unlimited
+  lifetime: 999999, // unlimited
 }
 
 export const PLAN_LABELS: Record<Plan, string> = {

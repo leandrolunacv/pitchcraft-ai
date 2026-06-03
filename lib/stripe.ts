@@ -7,16 +7,16 @@ export const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 export const PLANS = {
   monthly: {
     priceId: process.env.STRIPE_PRICE_MONTHLY!,
-    amount: 700,
+    amount: 1900,
     label: 'Pro Monthly',
     interval: 'month' as const,
-    pitches: 20,
+    pitches: -1, // unlimited
   },
   lifetime: {
     priceId: process.env.STRIPE_PRICE_LIFETIME!,
-    amount: 5000,
+    amount: 14900,
     label: 'Pro Lifetime',
     interval: null,
-    pitches: 20,
+    pitches: -1, // unlimited
   },
 }
