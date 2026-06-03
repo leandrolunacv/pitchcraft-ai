@@ -24,6 +24,7 @@ export default function HomePage() {
           <div className="hidden md:flex items-center gap-8">
             <a href="#features" className="text-white/50 hover:text-white text-sm transition-colors">Features</a>
             <a href="#how-it-works" className="text-white/50 hover:text-white text-sm transition-colors">How it works</a>
+            <Link href="/pricing" className="text-white/50 hover:text-white text-sm transition-colors">Pricing</Link>
           </div>
 
           <Link
