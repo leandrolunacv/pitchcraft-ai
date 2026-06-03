@@ -143,14 +143,14 @@ export default function PricingPage() {
           </motion.div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 pt-4">
           {plans.map((plan, i) => (
             <motion.div
               key={plan.id}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.1 }}
-              className={`relative rounded-2xl p-8 flex flex-col ${
+              className={`relative rounded-2xl p-8 flex flex-col mt-4 ${
                 plan.highlight
                   ? 'bg-brand-600/10 border-2 border-brand-500/50'
                   : 'glass-card'
